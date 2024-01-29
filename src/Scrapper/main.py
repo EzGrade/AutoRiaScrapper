@@ -44,6 +44,7 @@ class Scrapper:
             self.driver = webdriver.Chrome(options=options)
         else:
             self.driver = webdriver.Chrome()
+        self.delay = os.environ.get("DELAY", 1)
         self.url = "https://auto.ria.com/car/used/"
         self.page_number = 0
         self.car_links = []
@@ -139,7 +140,7 @@ class Scrapper:
             self.__GetCarLinks()
             for car_link in self.car_links:
                 self.driver.get(car_link)
-                time.sleep(1)
+                time.sleep(self.delay)
                 html = self.driver.page_source
                 try:
                     self.data = Parser(html).ParseTicket()
