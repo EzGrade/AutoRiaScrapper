@@ -7,11 +7,11 @@ setup_django()
 import requests
 from selenium import webdriver
 import logging
-import dotenv
 import os
 
 from parser import Parser
 from src.AutoRia.ticket.serializers import TicketSerializer
+from utils import Os
 
 
 class Scrapper:
@@ -34,8 +34,8 @@ class Scrapper:
     }
 
     def __init__(self):
-        dotenv.load_dotenv()
-        if os.environ.get("HEADLESS") == "True":
+        Os.LoadDotEnv()
+        if Os.GetEnv("HEADLESS") == "True":
             options = webdriver.ChromeOptions()
             options.add_argument("--headless")
             options.add_argument("--disable-gpu")
@@ -44,7 +44,7 @@ class Scrapper:
             self.driver = webdriver.Chrome(options=options)
         else:
             self.driver = webdriver.Chrome()
-        self.delay = os.environ.get("DELAY", 1)
+        self.delay = Os.GetEnv("DELAY")
         self.url = "https://auto.ria.com/car/used/"
         self.page_number = 0
         self.car_links = []
