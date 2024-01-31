@@ -24,11 +24,12 @@ class Runner:
         self.time = os.environ.get("TIME", "09:00")
         logging.info(f"Runner initialized with time: {self.time}")
         self.root_dir = os.path.dirname(os.path.abspath(__file__))
+        logging.info(f"Root dir: {self.root_dir}")
 
     def job(self):
         logging.info("Running job")
         self.dump_data()
-        main_path = os.path.join(self.root_dir, f"../../src/Scrapper/main.py")
+        main_path = os.path.join(self.root_dir, f"{self.root_dir}/main.py")
         os.system(f"python {main_path}")
 
     def dump_data(self):
