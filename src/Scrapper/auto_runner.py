@@ -28,7 +28,8 @@ class Runner:
     def job(self):
         logging.info("Running job")
         self.dump_data()
-        os.system("python D:\\AutoRiaScrapper\\src\\Scrapper\\main.py")
+        main_path = os.path.join(self.root_dir, f"../../src/Scrapper/main.py")
+        os.system(f"python {main_path}")
 
     def dump_data(self):
         date = time.strftime("%Y-%m-%d")
