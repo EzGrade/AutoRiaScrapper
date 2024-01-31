@@ -23,18 +23,16 @@ class Runner:
         dotenv.load_dotenv()
         self.time = os.environ.get("TIME", "09:00")
         logging.info(f"Runner initialized with time: {self.time}")
+        self.root_dir = os.path.dirname(os.path.abspath(__file__))
 
-    @staticmethod
-    def job():
+    def job(self):
         logging.info("Running job")
-        Runner.dump_data()
+        self.dump_data()
         os.system("python D:\\AutoRiaScrapper\\src\\Scrapper\\main.py")
 
-    @staticmethod
-    def dump_data():
+    def dump_data(self):
         date = time.strftime("%Y-%m-%d")
-        root_dir = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(root_dir, f"../../dumps")
+        path = os.path.join(self.root_dir, f"../../dumps")
         with io.open(f"{path}/{date}.json", "w", encoding='utf-8') as file:
             call_command("dumpdata", "ticket", stdout=file, format='json')
 
